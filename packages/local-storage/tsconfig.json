@@ -1,0 +1,16 @@
+{
+  "extends": "@workspace/typescript-config/base.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "paths": {
+      "@workspace/local-storage": ["./src/index.ts"],
+      "@workspace/local-storage/*": ["./src/*"],
+      "@workspace/utils": ["../utils/src/index.ts"],
+      "@workspace/utils/*": ["../utils/src/*"]
+    }
+  },
+  "include": ["src"],
+  "exclude": ["node_modules", "dist"]
+}
