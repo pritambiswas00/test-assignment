@@ -29,6 +29,9 @@ importers:
       '@t3-oss/env-nextjs':
         specifier: ^0.13.8
         version: 0.13.10(typescript@5.9.3)(zod@3.25.76)
+      '@workspace/http-client':
+        specifier: workspace:*
+        version: link:../../packages/http-client
       '@workspace/ui':
         specifier: workspace:*
         version: link:../../packages/ui
