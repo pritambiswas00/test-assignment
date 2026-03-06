@@ -1,5 +1,5 @@
-import { Button } from "@workspace/ui/components/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@workspace/ui/components/card"
+import { AddToCartButton } from "@/components/cart"
 
 import type { Product as ProductType } from "./types"
 import { ProductDate, ProductImage, ProductPrice } from "./common"
@@ -35,9 +35,14 @@ export default function Product({ product }: ProductProps) {
 				</CardContent>
 
 				<CardFooter>
-					<Button type="button" className="w-full md:w-auto">
-						Add to Cart
-					</Button>
+					<AddToCartButton
+						product={{
+							id: product.id,
+							title: product.title,
+							price: product.price,
+							thumbnail: product.thumbnail,
+						}}
+					/>
 				</CardFooter>
 			</div>
 		</Card>
