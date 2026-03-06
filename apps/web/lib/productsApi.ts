@@ -1,5 +1,5 @@
 import { getFromApi } from "@/lib/httpClient"
-import { ProductSchema, ProductListSchema, ProductsResponseSchema } from "@/components/products/validation"
+import { ProductSchema, ProductsResponseSchema } from "@/components/products/validation"
 import { Product, ProductsApiResult, ProductsResponse } from "@/components/products/types"
 import { Result } from "@workspace/utils"
 
@@ -9,6 +9,7 @@ const formatEndpointError = (endpoint: string, message: string) =>
 
 export const getProducts = async (): Promise<ProductsApiResult<ProductsResponse>> => {
   const response = await getFromApi<unknown>(BASE_END_POINT)
+
   if (response.tag === "err") {
     return Result.err({
       endpoint: BASE_END_POINT,

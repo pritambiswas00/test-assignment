@@ -1,3 +1,3 @@
-export * as Types from "./types.js"
-export * as Product from "./Product.js"
-export * as ProductList from "./ProductList.js"
+export * from "./types"
+export { default as Product } from "./Product"
+export { default as ProductList } from "./ProductList"

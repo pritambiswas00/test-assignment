@@ -36,7 +36,7 @@ export const ProductSchema = z.object({
   dimensions: DimensionsSchema,
   warrantyInformation: z.string(),
   shippingInformation: z.string(),
-  availabilityStatus: z.enum(['In Stock', 'Out of Stock', 'Preorder']),
+  availabilityStatus: z.enum(['In Stock', 'Out of Stock', 'Preorder', 'Low Stock']),
   reviews: z.array(ReviewSchema),
   returnPolicy: z.string(),
   minimumOrderQuantity: z.number(),

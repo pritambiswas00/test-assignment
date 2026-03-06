@@ -1,2 +1,2 @@
-export * as Option from "./Option.js"
-export * as Result from "./Result.js"
+export * as Option from "./Option"
+export * as Result from "./Result"

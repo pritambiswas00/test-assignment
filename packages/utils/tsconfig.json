@@ -2,6 +2,8 @@
   "extends": "@workspace/typescript-config/base.json",
   "compilerOptions": {
     "baseUrl": ".",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
     "paths": {
       "@workspace/utils": ["./src/index.ts"],
       "@workspace/utils/*": ["./src/*"]
