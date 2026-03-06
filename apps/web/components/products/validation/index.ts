@@ -46,3 +46,10 @@ export const ProductSchema = z.object({
 });
 
 export const ProductListSchema = z.array(ProductSchema);
+
+export const ProductsResponseSchema = z.object({
+  products: ProductListSchema,
+  total: z.number(),
+  skip: z.number(),
+  limit: z.number(),
+})
