@@ -18,6 +18,7 @@ export const config = [
       turbo: turboPlugin,
     },
     rules: {
+      "@typescript-eslint/no-explicit-any": "error",
       "turbo/no-undeclared-env-vars": "warn",
     },
   },
