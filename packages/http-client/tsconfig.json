@@ -1,0 +1,14 @@
+{
+  "extends": "@workspace/typescript-config/base.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@workspace/http-client": ["./src/index.ts"],
+      "@workspace/http-client/*": ["./src/*"],
+      "@workspace/utils": ["../utils/src/index.ts"],
+      "@workspace/utils/*": ["../utils/src/*"]
+    }
+  },
+  "include": ["src"],
+  "exclude": ["node_modules", "dist"]
+}
