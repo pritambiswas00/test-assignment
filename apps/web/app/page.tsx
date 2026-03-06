@@ -1,5 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@workspace/ui/components/card"
 import { ProductList } from "@/components/products"
+import { ErrorToast } from "@/components/error-toast"
 import { getProducts } from "@/lib/productsApi"
 
 export default async function Page() {
@@ -8,6 +9,7 @@ export default async function Page() {
   if (productsResult.tag === "err") {
     return (
       <main className="mx-auto min-h-svh w-full max-w-6xl px-4 py-10">
+        <ErrorToast message={productsResult.error.message} />
         <Card>
           <CardHeader>
             <CardTitle>Unable to load products</CardTitle>

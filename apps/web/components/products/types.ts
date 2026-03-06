@@ -8,9 +8,14 @@ export type Meta = z.infer<typeof MetaSchema>;
 export type Product = z.infer<typeof ProductSchema>;
 export type ProductList = z.infer<typeof ProductListSchema>;
 export type ProductsResponse = z.infer<typeof ProductsResponseSchema>;
+
+export type ProductsApiErrorReason = "request_failed" | "invalid_payload"
+
 export type ProductsApiError = {
+  reason: ProductsApiErrorReason
   endpoint: string
   message: string
+  status: number | null
 }
 
 export type ProductsApiResult<T> = Result.Result<T, ProductsApiError>

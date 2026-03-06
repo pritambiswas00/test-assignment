@@ -1,7 +1,7 @@
 import { getFromApi } from "@/lib/httpClient"
 import { ProductSchema, ProductsResponseSchema } from "@/components/products/validation"
 import { Product, ProductsApiResult, ProductsResponse } from "@/components/products/types"
-import { Result } from "@workspace/utils"
+import { Option, Result } from "@workspace/utils"
 
 const BASE_END_POINT = "/products" as const;
 const formatEndpointError = (endpoint: string, message: string) =>
@@ -12,8 +12,13 @@ export const getProducts = async (): Promise<ProductsApiResult<ProductsResponse>
 
   if (response.tag === "err") {
     return Result.err({
+      reason: "request_failed",
       endpoint: BASE_END_POINT,
       message: formatEndpointError(BASE_END_POINT, response.error.message),
+      status: Option.match(response.error.status, {
+        some: (status) => status,
+        none: () => null,
+      }),
     })
   }
 
@@ -21,8 +26,10 @@ export const getProducts = async (): Promise<ProductsApiResult<ProductsResponse>
 
   if (!parsed.success) {
     return Result.err({
+      reason: "invalid_payload",
       endpoint: BASE_END_POINT,
       message: formatEndpointError(BASE_END_POINT, "Invalid products payload from API"),
+      status: response.value.status,
     })
   }
 
@@ -34,15 +41,22 @@ export const getProductById = async (productId: number): Promise<ProductsApiResu
   const response = await getFromApi<unknown>(END_POINT)
   if (response.tag === "err") {
     return Result.err({
+      reason: "request_failed",
       endpoint: END_POINT,
       message: formatEndpointError(END_POINT, response.error.message),
+      status: Option.match(response.error.status, {
+        some: (status) => status,
+        none: () => null,
+      }),
     })
   }
   const parsed = ProductSchema.safeParse(response.value.data)
   if (!parsed.success) {
     return Result.err({
+      reason: "invalid_payload",
       endpoint: END_POINT,
       message: formatEndpointError(END_POINT, "Invalid product payload from API"),
+      status: response.value.status,
     })
   }
 
