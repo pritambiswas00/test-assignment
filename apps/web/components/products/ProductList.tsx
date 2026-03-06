@@ -20,8 +20,8 @@ export default function ProductList({ products }: ProductListProps) {
 		<div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
 			{products.map((product) => (
 				<Link key={product.id} href={`/products/${product.id}`} className="group">
-					<Card className="h-full overflow-hidden transition-colors group-hover:ring-foreground/20">
-						<div className="relative aspect-[4/3] w-full overflow-hidden bg-muted">
+					<Card className="h-full overflow-hidden transition-colors group-hover:ring-foreground/20 p-2">
+						<div className="relative aspect-4/3 w-full overflow-hidden bg-muted">
 							<ProductImage
 								src={product.thumbnail}
 								alt={product.title}
