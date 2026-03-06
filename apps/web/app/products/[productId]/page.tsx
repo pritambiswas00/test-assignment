@@ -7,12 +7,12 @@ import { getProductById } from "@/lib/productsApi"
 
 type ProductPageProps = {
   params: Promise<{
-    id: string
+    productId: string
   }>
 }
 
 export default async function ProductPage({ params }: ProductPageProps) {
-  const { id: rawId } = await params
+  const { productId: rawId } = await params
   const id = Number(rawId)
 
   if (!Number.isInteger(id) || id <= 0) {
