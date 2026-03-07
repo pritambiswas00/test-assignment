@@ -28,6 +28,12 @@ export const config = [
     },
   },
   {
+    files: ["**/*.test.{ts,tsx}", "**/*.spec.{ts,tsx}", "**/__tests__/**/*.{ts,tsx}"],
+    rules: {
+      "@typescript-eslint/no-explicit-any": "error",
+    },
+  },
+  {
     ignores: ["dist/**"],
   },
 ]
