@@ -5,6 +5,8 @@ import { Result } from "@workspace/utils"
 import { ErrorToast } from "@workspace/ui/components/error-toast"
 import { notFound } from "next/navigation"
 
+export const dynamic = "force-dynamic"
+
 export default async function Page() {
     const productsResult = await getProducts()
     return Result.match(productsResult, {
