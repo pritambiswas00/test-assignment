@@ -83,7 +83,6 @@ describe('Product Component', () => {
 
     it('renders product information correctly', () => {
         render(<Product product={mockProduct} />)
-
         expect(screen.getByText('Test Product')).toBeInTheDocument()
         expect(screen.getByText('Test Description')).toBeInTheDocument()
         expect(screen.getByText(/Category: Electronics/)).toBeInTheDocument()

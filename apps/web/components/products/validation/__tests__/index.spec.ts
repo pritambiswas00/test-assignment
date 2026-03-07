@@ -5,7 +5,6 @@ DimensionsSchema,
 ReviewSchema,
 MetaSchema,
 ProductSchema,
-ProductListSchema,
 ProductsResponseSchema,
 } from '../index';
 
