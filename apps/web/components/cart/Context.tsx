@@ -17,7 +17,6 @@ const cartStorage = createLocalStorageManager(CART_STORAGE_NAMESPACE)
 
 const cartStateParser: ValueParser<CartState> = (value: unknown) => {
   const parsed = CartStateSchema.safeParse(value)
-
   if (!parsed.success) {
     return Result.err({
       reason: "deserialization_failed",
@@ -25,7 +24,6 @@ const cartStateParser: ValueParser<CartState> = (value: unknown) => {
       message: "Invalid cart payload in localStorage",
     })
   }
-
   return Result.ok(parsed.data)
 }
 
@@ -85,20 +83,17 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 
   React.useEffect(() => {
     const storedCartResult = cartStorage.getItem<CartState>(CART_STORAGE_KEY, cartStateParser)
-
-    if (storedCartResult.tag === "err") {
-      toast.error(storedCartResult.error.message)
-      setIsHydrated(true)
-      return
-    }
-
-    Option.match(storedCartResult.value, {
-      some: (storedState) => {
-        dispatch({ type: "hydrate", payload: storedState })
+    Result.match(storedCartResult, {
+      err: (error) => {
+        toast.error(error.message)
+        setIsHydrated(true);
+        return;
       },
-      none: () => undefined,
+      ok: (storedCart)=> Option.match(storedCart, {
+         none: ()=> undefined,
+         some: (storedState) => dispatch({ type: "hydrate", payload: storedState }),
+      })
     })
-
     setIsHydrated(true)
   }, [])
 

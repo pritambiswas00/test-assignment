@@ -5,17 +5,13 @@ import axios, {
   type CreateAxiosDefaults,
 } from "axios"
 import { Option, Result } from "@workspace/utils"
-
 import type { HttpError, HttpResult, HttpSuccess, RequestConfig } from "./types.js"
-
-const toOption = <T>(value: T | null | undefined): Option.Option<T> =>
-  value === null || value === undefined ? Option.none<T>() : Option.some(value)
 
 const createHttpError = (error: AxiosError): HttpError => ({
   message: error.message,
-  status: toOption(error.response?.status),
-  code: toOption(error.code),
-  details: toOption(error.response?.data),
+  status: Option.toOption(error.response?.status),
+  code: Option.toOption(error.code),
+  details: Option.toOption(error.response?.data),
 })
 
 const toHttpSuccess = <T>(response: AxiosResponse<T>): HttpSuccess<T> => ({
@@ -37,7 +33,7 @@ const handleAxiosCall = async <T>(request: () => Promise<HttpSuccess<T>>): Promi
       message: error instanceof Error ? error.message : "Unknown request error",
       status: Option.none<number>(),
       code: Option.none<string>(),
-      details: toOption(error),
+      details: Option.toOption(error),
     })
   }
 }

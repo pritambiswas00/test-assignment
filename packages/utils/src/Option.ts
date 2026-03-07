@@ -38,3 +38,6 @@ export const match = <T, U>(
 
 export const getOrElse = <T>(option: Option<T>, fallback: T): T =>
   isSome(option) ? option.value : fallback
+
+export const toOption = <T>(value: T | null | undefined): Option<T> =>
+  value === null || value === undefined ? none<T>() : some(value)

@@ -1,14 +1,13 @@
 import { getFromApi } from "@/lib/httpClient"
 import { ProductSchema, ProductsResponseSchema } from "@/components/products/validation"
-import { Product, ProductsApiResult, ProductsResponse } from "@/components/products/types"
+import type { Product, ProductsApiResult, ProductsResponse } from "@/components/products/types"
 import { Option, Result } from "@workspace/utils"
+import { formatEndpointError } from "./common";
 
 const BASE_END_POINT = "/products" as const;
-const formatEndpointError = (endpoint: string, message: string) =>
-  `Request failed for ${endpoint}: ${message}`
 
 export const getProducts = async (): Promise<ProductsApiResult<ProductsResponse>> => {
-  const response = await getFromApi<unknown>(BASE_END_POINT)
+  const response = await getFromApi<ProductsResponse>(BASE_END_POINT)
 
   if (response.tag === "err") {
     return Result.err({
