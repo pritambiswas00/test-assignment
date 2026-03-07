@@ -4,7 +4,7 @@ import { z } from "zod"
 export const env = createEnv({
   server: {
     NODE_ENV: z.enum(["development", "test", "production"]),
-    EXTERNAL_SERVER_API: z.string().url()
+    EXTERNAL_SERVER_API: z.string().url().default('http://example.com')
   },
   client: {
     NEXT_PUBLIC_APP_NAME: z.string().min(1).default("web"),

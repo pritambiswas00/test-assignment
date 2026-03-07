@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  transpilePackages: ["@workspace/ui"],
+  output: "standalone",
+  transpilePackages: ["@workspace/ui", "@workspace/http-client", "@workspace/utils", "@workspace/local-storage", "@workspace/eslint-config", "@workspace/typescript-config"],
   images: {
     remotePatterns: [
       {
