@@ -1,31 +1,90 @@
-# shadcn/ui monorepo template
+# Test Assignment Monorepo
 
-This template is for creating a monorepo with shadcn/ui.
+This repository is a PNPM + Turbo monorepo with:
+- `apps/web`: Next.js app
+- `packages/*`: shared libraries (`ui`, `utils`, `http-client`, `local-storage`, etc.)
 
-## Usage
+## Prerequisites
+
+- Node.js `>= 20`
+- PNPM `10.x`
+- Docker + Docker Compose (optional, for containerized run)
+
+## Install
+
+From repository root:
 
 ```bash
-pnpm dlx shadcn@latest init
+pnpm install
 ```
 
-## Adding components
+## Environment Setup
 
-To add components to your app, run the following command at the root of your `web` app:
+Create your app env file:
 
 ```bash
-pnpm dlx shadcn@latest add button -c apps/web
+cp apps/web/.env.example apps/web/.env
 ```
 
-This will place the ui components in the `packages/ui/src/components` directory.
+Set required values in `apps/web/.env`:
 
-## Tailwind
+```dotenv
+EXTERNAL_SERVER_API=https://dummyjson.com/
+NEXT_PUBLIC_APP_NAME=web
+```
 
-Your `tailwind.config.ts` and `globals.css` are already set up to use the components from the `ui` package.
+## Run Locally
 
-## Using components
+Run only the web app:
 
-To use the components in your app, import them from the `ui` package.
+```bash
+pnpm --filter web dev
+```
 
-```tsx
-import { Button } from "@workspace/ui/components/button"
+Open:
+- `http://localhost:3000`
+
+## Build and Start (Production-like)
+
+```bash
+pnpm --filter web build
+pnpm --filter web start
+```
+
+## Run with Docker Compose
+
+From repository root:
+
+```bash
+docker compose up --build web
+```
+
+The service is available at:
+- `http://localhost:3000`
+
+Stop containers:
+
+```bash
+docker compose down
+```
+
+## Useful Commands
+
+Run all workspace builds:
+
+```bash
+pnpm build
+```
+
+Run lint across workspace:
+
+```bash
+pnpm lint
+```
+
+Run tests for a specific package:
+
+```bash
+pnpm --filter @workspace/local-storage test
+pnpm --filter @workspace/http-client test
 ```
