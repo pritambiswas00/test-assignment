@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeEach, vi } from "vitest"
 import { render, screen, waitFor } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
-import { CartProvider, useCart } from "./Context"
+import { CartProvider, useCart } from "../Context"
 import * as React from "react"
 
 vi.mock("@workspace/local-storage", () => ({

@@ -1,6 +1,6 @@
 import { describe, it, expect, vi } from "vitest"
 import { render, screen } from "@testing-library/react"
-import { CartHeader } from "./CartHeader"
+import { CartHeader } from "../CartHeader"
 
 vi.mock("@/components/cart/CartPopup", () => ({
     CartPopup: () => <div data-testid="cart-popup">CartPopup</div>,

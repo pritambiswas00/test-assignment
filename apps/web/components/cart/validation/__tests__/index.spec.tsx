@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { CartItemSchema, CartStateSchema } from './index';
+import { CartItemSchema, CartStateSchema } from '../index';
 
 describe('CartItemSchema', () => {
     it('should validate a correct cart item', () => {

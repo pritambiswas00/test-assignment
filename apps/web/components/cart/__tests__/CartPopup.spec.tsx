@@ -1,6 +1,6 @@
 import { describe, it, expect, vi } from "vitest"
 import { render, screen, fireEvent } from "@testing-library/react"
-import { CartPopup } from "./CartPopup"
+import { CartPopup } from "../CartPopup"
 import { useCart } from "@/components/cart/Context"
 
 vi.mock("@/components/cart/Context")

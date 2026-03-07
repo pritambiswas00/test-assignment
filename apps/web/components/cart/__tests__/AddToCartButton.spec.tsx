@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from "vitest"
 import { render, screen, fireEvent } from "@testing-library/react"
-import { AddToCartButton } from "./AddToCartButton"
+import { AddToCartButton } from "../AddToCartButton"
 import * as CartContext from "@/components/cart/Context"
 import * as Sonner from "@workspace/ui/components/sonner"
 
