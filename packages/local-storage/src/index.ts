@@ -86,7 +86,6 @@ export const createLocalStorageManager = (namespace?: string): LocalStorageManag
       if (parsedValue.tag === "err") {
         return parsedValue
       }
-
       return Result.ok(Option.some(parsedValue.value))
     } catch (error) {
       return Result.err(

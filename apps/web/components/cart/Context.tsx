@@ -120,7 +120,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
       addItem: (item) => dispatch({ type: "add", payload: item }),
       removeItem: (id) => dispatch({ type: "remove", payload: { id } }),
       clearCart: () => dispatch({ type: "clear" }),
-    }),
+    } as const),
     [state.items],
   )
 
