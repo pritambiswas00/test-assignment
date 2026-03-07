@@ -3,20 +3,26 @@ import { ProductList } from "@/components/products"
 import { getProducts } from "@/lib/productsApi"
 import { Result } from "@workspace/utils"
 import { ErrorToast } from "@workspace/ui/components/error-toast"
+import { notFound } from "next/navigation"
 
 export default async function Page() {
     const productsResult = await getProducts()
     return Result.match(productsResult, {
         err: (error) => {
-            <main className="mx-auto min-h-svh w-full max-w-6xl px-4 py-10">
-                <ErrorToast message={error.message} />
-                <Card>
-                    <CardHeader>
-                        <CardTitle>Unable to load products</CardTitle>
-                    </CardHeader>
-                    <CardContent className="text-sm text-muted-foreground">{error.message}</CardContent>
-                </Card>
-            </main>
+            if (error.status === 404) {
+                notFound()
+            }
+            return (
+                <main className="mx-auto min-h-svh w-full max-w-5xl px-4 py-10">
+                    <ErrorToast message={error.message} />
+                    <Card>
+                        <CardHeader>
+                            <CardTitle>Unable to load product</CardTitle>
+                        </CardHeader>
+                        <CardContent className="text-sm text-muted-foreground">{error.message}</CardContent>
+                    </Card>
+                </main>
+            )
         },
         ok: (data) => (
             <main className="mx-auto min-h-svh w-full max-w-6xl px-4 py-10">
