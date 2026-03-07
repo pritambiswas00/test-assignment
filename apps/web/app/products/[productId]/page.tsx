@@ -1,9 +1,9 @@
 import { notFound } from "next/navigation"
 import { Card, CardContent, CardHeader, CardTitle } from "@workspace/ui/components/card"
 import { Product } from "@/components/products"
-import { ErrorToast } from "@/components/error-toast"
 import { getProductById } from "@/lib/productsApi"
 import { Result } from "@workspace/utils"
+import { ErrorToast } from "@workspace/ui/components/error-toast"
 
 type ProductPageProps = {
   params: Promise<{
@@ -14,7 +14,6 @@ type ProductPageProps = {
 export default async function ProductPage({ params }: ProductPageProps) {
   const { productId: rawId } = await params
   const id = Number(rawId)
-
   if (!Number.isInteger(id) || id <= 0) {
     notFound()
   }

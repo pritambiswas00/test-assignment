@@ -21,6 +21,6 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts"
-  ],
+, "../../packages/ui/src/components/error-toast.tsx"  ],
   "exclude": ["node_modules"]
 }
