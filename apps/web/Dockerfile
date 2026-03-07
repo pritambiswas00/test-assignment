@@ -7,15 +7,11 @@ FROM base AS pruner
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
-# Install turbo globally
 RUN npm install -g turbo
 
-# Copy everything
 COPY . .
 
-# Prune to only what the app needs
 RUN turbo prune web --docker
-# Replace "web" with your app name from package.json
 
 
 # ---- Install dependencies stage ----
@@ -23,15 +19,12 @@ FROM base AS installer
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
-# Copy pruned lockfile and package.json files
 COPY --from=pruner /app/out/json/ .
 COPY --from=pruner /app/out/pnpm-lock.yaml ./pnpm-lock.yaml
 COPY --from=pruner /app/out/pnpm-workspace.yaml ./pnpm-workspace.yaml
 
-# Install pnpm
 RUN npm install -g pnpm
 
-# Install only needed dependencies
 RUN pnpm install --frozen-lockfile
 
 
@@ -47,15 +40,11 @@ ARG NEXT_PUBLIC_APP_NAME
 ENV EXTERNAL_SERVER_API=${EXTERNAL_SERVER_API}
 ENV NEXT_PUBLIC_APP_NAME=${NEXT_PUBLIC_APP_NAME}
 
-# Copy installed node_modules
 COPY --from=installer /app/ .
 
-# Copy full source from pruner
 COPY --from=pruner /app/out/full/ .
 
-# Build only the specific app
 RUN turbo run build --filter=web
-# Replace "web" with your app name
 
 
 # ---- Runner stage (final image) ----
@@ -71,11 +60,9 @@ ARG NEXT_PUBLIC_APP_NAME
 ENV EXTERNAL_SERVER_API=${EXTERNAL_SERVER_API}
 ENV NEXT_PUBLIC_APP_NAME=${NEXT_PUBLIC_APP_NAME}
 
-# Create non-root user for security
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
-# Copy standalone output
 COPY --from=builder --chown=nextjs:nodejs /app/apps/web/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/apps/web/.next/static ./apps/web/.next/static
 
